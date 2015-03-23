@@ -1,0 +1,310 @@
+program hall_258V1
+dim i as byte
+dim itt as byte
+dim i1 as byte
+dim i2 as byte
+dim j1 as byte
+dim j2 as byte
+dim count as byte
+dim count2 as byte
+dim tempo1 as word
+
+
+dim const labrique2 as byte[154] = (
+0,0,24,24,0,0,255,1,1,1,1,0,0,127,144,144,144,127,0,0,0,0,255,145,145,145,110,0,0,255,144,144,144,111,0,0,191,0,0,126,129,133,131,127,0,0,254,1,1,1,254,0,0,255,145,145,145,129,0,0,255,144,144,144,111,0,0,191,0,0,255,145,145,145,129,0,0,
+0,0,24,24,0,0,255,1,1,1,1,0,0,127,144,144,144,127,0,0,0,0,255,145,145,145,110,0,0,255,144,144,144,111,0,0,191,0,0,126,129,133,131,127,0,0,254,1,1,1,254,0,0,255,145,145,145,129,0,0,255,144,144,144,111,0,0,191,0,0,255,145,145,145,129,0,0)
+
+dim const thionv as  byte[154] = (
+0,0,0,0,36,24,126,24,36,0,0,0,0,128,128,255,128,128,0,0,255,16,16,16,255,0,0,191,0,0,126,129,129,129,126,0,0,255,96,24,6,255,0,0,252,2,1,2,252,0,0,191,0,0,255,1,1,1,1,0,0,255,1,1,1,1,0,0,255,145,145,145,129,0,0,0,0,
+0,0,0,0,36,24,126,24,36,0,0,0,0,128,128,255,128,128,0,0,255,16,16,16,255,0,0,191,0,0,126,129,129,129,126,0,0,255,96,24,6,255,0,0,252,2,1,2,252,0,0,191,0,0,255,1,1,1,1,0,0,255,1,1,1,1,0,0,255,145,145,145,129,0,0,0,0)
+'''''
+dim const polyval_2 as byte[154] = (
+0,0,0,24,24,0,0,255,144,144,144,96,0,0,126,129,129,129,126,0,0,255,1,1,1,1,0,0,224,16,31,16,224,0,0,252,2,1,2,252,0,0,127,144,144,144,127,0,0,255,1,1,1,1,0,0,255,145,145,145,129,0,0,255,96,24,6,255,0,0,128,128,255,128,128,0,0,
+0,0,0,24,24,0,0,255,144,144,144,96,0,0,126,129,129,129,126,0,0,255,1,1,1,1,0,0,224,16,31,16,224,0,0,252,2,1,2,252,0,0,127,144,144,144,127,0,0,255,1,1,1,1,0,0,255,145,145,145,129,0,0,255,96,24,6,255,0,0,128,128,255,128,128,0,0)
+
+dim const lyce_2 as byte[154] = (
+0,0,36,24,126,24,36,0,0,0,0,36,24,126,24,36,0,0,0,0,36,24,126,24,36,0,0,0,0,255,1,1,1,1,0,0,192,32,31,32,192,0,0,126,129,129,129,66,0,0,255,145,145,145,129,0,0,255,145,145,145,129,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,36,24,126,24,36,0,0,0,0,36,24,126,24,36,0,0,0,0,36,24,126,24,36,0,0,0,0,255,1,1,1,1,0,0,192,32,31,32,192,0,0,126,129,129,129,66,0,0,255,145,145,145,129,0,0,255,145,145,145,129,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+
+dim const formation as byte[154] = (
+0,0,0,0,0,0,0,0,0,255,144,144,128,128,0,0,126,129,129,129,126,0,0,255,144,144,144,111,0,0,255,64,48,48,64,255,0,0,127,144,144,144,127,0,0,128,128,255,128,128,0,0,191,0,0,126,129,129,129,126,0,0,255,96,24,6,255,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,255,144,144,128,128,0,0,126,129,129,129,126,0,0,255,144,144,144,111,0,0,255,64,48,48,64,255,0,0,127,144,144,144,127,0,0,128,128,255,128,128,0,0,191,0,0,126,129,129,129,126,0,0,255,96,24,6,255,0,0,0,0,0,0,0,0,0,0)
+
+dim const sti as byte[154] = (
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,24,126,24,36,0,0,0,0,97,145,145,145,134,0,0,128,128,255,128,128,0,0,191,0,0,67,133,137,145,97,0,0,255,129,129,129,126,0,0,0,0,36,24,126,24,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,24,126,24,36,0,0,0,0,97,145,145,145,134,0,0,128,128,255,128,128,0,0,191,0,0,67,133,137,145,97,0,0,255,129,129,129,126,0,0,0,0,36,24,126,24,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+''''''
+
+''''''
+dim const P_lyce as byte[130] = (
+0,0,0,0,0,0,0,0,126,2,2,2,2,0,0,96,16,14,16,96,0,0,60,66,66,66,36,0,0,126,82,82,66,66,0,0,126,82,82,66,66,0,0,0,0,126,2,2,2,2,0,0,62,72,72,72,62,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+
+dim const p_brique as byte[130] = (
+0,0,126,82,82,82,44,0,0,126,72,72,72,54,0,0,66,66,126,66,66,0,0,60,66,74,70,58,0,0,124,2,2,2,124,0,0,126,82,82,66,66,0,0,126,72,72,72,54,0,0,66,66,126,66,66,0,0,126,82,82,66,66,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+''''''''''''
+dim const P_lyce2 as byte[65] = (
+0,0,0,0,0,0,0,0,126,2,2,2,2,0,0,96,16,14,16,96,0,0,60,66,66,66,36,0,0,126,82,82,66,66,0,0,126,82,82,66,66,0,0,0,0,126,2,2,2,2,0,0,62,72,72,72,62,0,0,0,0,0,0,0,0)
+dim const p_brique2 as byte[65] = (
+0,0,126,82,82,82,44,0,0,126,72,72,72,54,0,0,66,66,126,66,66,0,0,60,66,74,70,58,0,0,124,2,2,2,124,0,0,126,82,82,66,66,0,0,126,72,72,72,54,0,0,66,66,126,66,66,0,0,126,82,82,66,66,0,0)
+
+
+dim const ligne_haut as byte[17] = (255,127,191,223,239,247,251,253,254,255,255,255,255,255,255,255,255)
+dim const ligne_bas as byte[17] =  (255,255,255,255,255,255,255,255,255,127,191,223,239,247,251,253,254)
+
+dim const ligne_haut1 as byte[17] = (255,255,255,255,255,255,255,255,254,253,251,247,239,223,191,127,255)
+dim const ligne_bas1 as byte[17] =  (254,253,251,247,239,223,191,127,255,255,255,255,255,255,255,255,255)
+
+
+
+sub procedure aff_base2()
+tempo1 = 1
+while tempo1 < 10000
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 154
+         portb = lyce_2[count]
+         portc =  polyval_2[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+end sub
+
+sub procedure aff_base3()
+tempo1 = 1
+while tempo1 < 10000
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 154
+         portb = labrique2[count]
+         portc =  thionv[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+end sub
+
+sub procedure aff_base_anim2()
+    tempo1 = 1
+    i = 1
+    i1 = 128
+    i2 = 128
+    itt = 1
+    while itt <> 7
+      if porta.0 = 0 then
+      count = 1
+          if tempo1 >= 510 then
+          i = (i+i)+1
+          i2 = i2/2
+          i1 = i1 + i2
+          inc (itt)
+          tempo1 = 1
+         end if
+
+         for count = 1 to 154
+           portb  = lyce_2[count] and i1
+           portc  = polyval_2[count] and i
+             Delay_us(300)
+             inc (tempo1)
+         next count
+         portb = 0
+        portc = 0
+      end if
+   wend
+end sub
+
+sub procedure aff_base_anim3()
+    tempo1 = 1
+    i = 1
+    i1 = 128
+    i2 = 128
+    itt = 1
+    while itt <> 7
+      if porta.0 = 0 then
+      count = 1
+          if tempo1 >= 510 then
+          i = (i+i)+1
+          i2 = i2/2
+          i1 = i1 + i2
+          inc (itt)
+          tempo1 = 1
+         end if
+
+         for count = 1 to 154
+           portb  = labrique2[count] and i1
+           portc  = thionv[count] and i
+             Delay_us(300)
+             inc (tempo1)
+         next count
+         portb = 0
+        portc = 0
+      end if
+   wend
+end sub
+
+sub procedure rotate_2()
+    tempo1 = 1
+    j1 = 65
+    j2 = 130
+    while j1 <> 1
+      if porta.0 = 0 then
+      count = 1
+          if tempo1 >= 100 then
+          dec (j1)
+          dec (j2)
+          tempo1 = 1
+         end if
+
+         for count = j1 to j2
+           portb  = not(P_lyce[count])
+           portc  = not(p_brique[count])
+             Delay_us(300)
+             inc (tempo1)
+         next count
+        portb = 0
+        portc = 0
+      end if
+   wend
+tempo1 = 1
+while tempo1 < 5000
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 65
+         portb = not(P_lyce2[count])
+         portc = not(p_brique2[count])
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+   
+end sub
+
+sub procedure anim_horz()
+tempo1 = 1
+while tempo1 < 300
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 17
+         portb = ligne_haut[count]
+         portc = ligne_bas[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+tempo1 = 1
+while tempo1 < 100
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 17
+         portb = ligne_haut1[count]
+         portc = ligne_bas1[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+end sub
+
+sub procedure aff_base4()
+tempo1 = 1
+while tempo1 < 20000
+
+         for count = 1 to 154
+         portb = lyce_2[count]
+         portc =  polyval_2[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+
+wend
+end sub
+
+sub procedure aff_base5()
+tempo1 = 1
+while tempo1 < 20000
+         for count = 1 to 154
+         portb = labrique2[count]
+         portc =  thionv[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+
+wend
+end sub
+
+sub procedure aff_base6()
+tempo1 = 1
+while tempo1 < 20000
+      if porta.0 = 0 then
+      count = 1
+         for count = 1 to 154
+         portb = formation[count]
+         portc =  sti[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+      end if
+wend
+end sub
+
+sub procedure aff_base7()
+tempo1 = 1
+while tempo1 < 30000
+         for count = 1 to 154
+         portb = formation[count]
+         portc =  sti[count]
+         Delay_us(300)
+         inc (tempo1)
+         next count
+         portb = 0
+         portc = 0
+wend
+end sub
+main:
+
+ADCON1 = %0111
+trisa = %00000001
+portb = 0x00
+LATB = 0x00
+trisb = 0x00
+trisc = 0x00
+portc = 0x00
+INTCON2.7 = 1
+Delay_1sec
+Delay_1sec
+while true
+aff_base_anim2
+aff_base2
+
+aff_base_anim3
+aff_base3
+rotate_2
+'anim_horz
+aff_base4
+aff_base5
+aff_base6
+aff_base7
+wend
+end.

@@ -1,0 +1,11 @@
+main
+	Delay_1sec
+	aff_base_anim2
+	aff_base2
+	aff_base_anim3
+	aff_base3
+	rotate_2
+	aff_base4
+	aff_base5
+	aff_base6
+	aff_base7
